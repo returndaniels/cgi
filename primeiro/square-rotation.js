@@ -56,8 +56,8 @@ function mainEntrance() {
   });
 
   const draw = () => {
-    rotation += 0.5;
-    degree = rotation * (Math.PI / 180);
+    rotation -= 2;
+    degree = rotation * (Math.PI / 360);
 
     if (color == RED) {
       vx = cx !== 0 ? -rectSize : 0;

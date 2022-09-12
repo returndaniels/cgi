@@ -7,6 +7,15 @@ const RED = 114,
 var w;
 var h;
 
+function rotationTransform2D(x, y, theta) {
+  const cos = Math.cos;
+  const sin = Math.sin;
+  return {
+    x: x * cos(theta) - y * sin(theta),
+    y: y * cos(theta) + x * sin(theta),
+  };
+}
+
 function addEvent(element, eventName, callback) {
   if (element.addEventListener) {
     element.addEventListener(eventName, callback, false);
@@ -47,7 +56,7 @@ function mainEntrance() {
   });
 
   const draw = () => {
-    rotation += 8;
+    rotation += 0.5;
     degree = rotation * (Math.PI / 180);
 
     if (color == RED) {
@@ -73,8 +82,9 @@ function mainEntrance() {
     }
 
     if (changed) {
-      centerX += vx * Math.cos(vx);
-      centerY += vy * Math.sin(vy);
+      const { x: rx, y: ry } = rotationTransform2D(vx, vy, degree);
+      centerX += rx;
+      centerY += ry;
       changed = false;
     }
 
@@ -82,7 +92,6 @@ function mainEntrance() {
     ctx.clearRect(0, 0, w, h);
     ctx.translate(centerX, centerY);
     ctx.rotate(degree);
-    // ctx.fillRect(rectSize / 2, 0, rectSize * 2, rectSize * 2);
 
     ctx.fillStyle = "rgb(0, 204, 204)";
     ctx.fillRect(-rectSize, -rectSize, rectSize * 2, rectSize * 2);
@@ -111,14 +120,12 @@ function mainEntrance() {
     ctx.restore();
   };
 
-  setInterval(draw, 100);
+  var runanimation = (() => {
+    return () => {
+      draw();
+      requestAnimationFrame(runanimation);
+    };
+  })();
 
-  // var runanimation = (() => {
-  //   return () => {
-  //     draw();
-  //     requestAnimationFrame(runanimation);
-  //   };
-  // })();
-
-  // runanimation();
+  runanimation();
 }

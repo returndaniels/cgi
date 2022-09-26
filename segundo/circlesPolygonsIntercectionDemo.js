@@ -95,12 +95,11 @@ polyDemo = () => {
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = ctx.strokeStyle = "black";
 
-    const tt = (r1, r2) =>
-      polygonsIntersection(isosceles(...r1), isosceles(...r2), 3);
-    const tc = (iso, cir) =>
-      polygonCircleIntersection(isosceles(...iso), cir, 3);
+    const tt = (t1, t2) =>
+      polygonsIntersection(isosceles(...t1), isosceles(...t2));
+    const tc = (iso, cir) => polygonCircleIntersection(isosceles(...iso), cir);
     const tr = (iso, rect) =>
-      polygonsIntersection(rectangle(...rect), isosceles(...iso), 4, 3);
+      polygonsIntersection(rectangle(...rect), isosceles(...iso));
     const rr = (r1, r2) =>
       polygonsIntersection(rectangle(...r1), rectangle(...r2));
     const rc = (rect, cir) =>
@@ -271,8 +270,9 @@ function rectangle(center, e1, e2, e3, e4) {
   ];
 }
 
-function polygonCircleIntersection(rect, circle, numberPoints = 4) {
-  if (util2d.pointInPoly(circle[0], rect)) return true;
+function polygonCircleIntersection(pol, circle) {
+  const numberPoints = pol.length;
+  if (util2d.pointInPoly(circle[0], pol)) return true;
   for (let i = 0; i < numberPoints; i++) {
     for (let j = 0; j < 360; j++) {
       let degree = (j * Math.PI) / 180;
@@ -280,8 +280,8 @@ function polygonCircleIntersection(rect, circle, numberPoints = 4) {
       vec2.rotate(p, circle[1], circle[0], degree);
       if (
         vec2.segmentsIntersect(
-          rect[i],
-          rect[(i + 1) % numberPoints],
+          pol[i],
+          pol[(i + 1) % numberPoints],
           circle[0],
           p
         )
@@ -304,8 +304,9 @@ function circlesIntersection(circle1, circle2) {
   return dist <= radio1 + radio2;
 }
 
-function polygonsIntersection(pol1, pol2, numberPoints = 4, np = null) {
-  const numberPoints2 = np ?? numberPoints;
+function polygonsIntersection(pol1, pol2) {
+  const numberPoints = pol1.length;
+  const numberPoints2 = pol2.length;
   let pointsInPol1 = 0,
     pointsInPol2 = 0;
 

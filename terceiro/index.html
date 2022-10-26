@@ -5,24 +5,97 @@ Vertex shader does basic Lambert shading. -->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
     <title>Hierarchy</title>
   </head>
 
   <body>
-    <canvas id="theCanvas" width="600" height="400">
+    <canvas id="theCanvas" width="720" height="480">
       Please use a browser that supports "canvas"
     </canvas>
 
-    <p>Keyboard controls:</p>
+    <p>* Click button or type equivalent keyboard letter key</p>
 
-    <ul style="list-style: none">
-      <li>t, T - torso rotation</li>
-      <li>s, S - shoulder rotation</li>
-      <li>a, A - arm rotation</li>
-      <li>h, A - hand rotation</li>
-      <li>l, L - head rotation</li>
-      <li id="options"></li>
-    </ul>
+    <div class="controls-layout">
+      <div class="row flex justify-center">
+        <button
+          id="head"
+          name="head"
+          title="Rotate head (you can also press 'L')"
+        ></button>
+      </div>
+      <div class="row flex justify-center">
+        <div class="flex flex-col">
+          <button
+            id="rshoulder"
+            name="rshoulder"
+            title="Rotate shoulder (you can also press 'O')"
+          ></button>
+          <button
+            id="rarm"
+            name="rarm"
+            title="Rotate arm (you can also press 'B')"
+          ></button>
+          <button
+            id="rhand"
+            name="rhand"
+            title="Rotate hand (you can also press 'M')"
+          ></button>
+        </div>
+        <div style="min-width: 80px">
+          <button
+            id="torso"
+            name="torso"
+            title="Rotate torso (you can also press 'T')"
+          ></button>
+          <div class="flex justify-between">
+            <div class="flex flex-col">
+              <button
+                id="rleg"
+                name="rleg"
+                title="Rotate leg (you can also press 'C')"
+              ></button>
+              <button
+                id="rfeet"
+                name="rfeet"
+                title="Rotate feet (you can also press 'P')"
+              ></button>
+            </div>
+            <div class="flex flex-col">
+              <button
+                id="lleg"
+                name="lleg"
+                title="Rotate leg (you can also press 'D')"
+              ></button>
+              <button
+                id="lfeet"
+                name="lfeet"
+                title="Rotate feet (you can also press 'F') 'F'"
+              ></button>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <button
+            id="lshoulder"
+            name="lshoulder"
+            title="Rotate shoulder (you can also press 'S')"
+          ></button>
+          <button
+            id="larm"
+            name="larm"
+            title="Rotate arm (you can also press 'A')"
+          ></button>
+          <button
+            id="lhand"
+            name="lhand"
+            title="Rotate hand (you can also press 'H')"
+          ></button>
+        </div>
+      </div>
+    </div>
+
+    <p id="options"></p>
 
     <script id="vertexLightingShader" type="x-shader/x-vertex">
       uniform mat4 model;
@@ -60,5 +133,15 @@ Vertex shader does basic Lambert shading. -->
     <script src="./libs/cuon/cuon-utils.js"></script>
     <script src="./libs/cuon/cuon-matrix.js"></script>
     <script src="Hierarchy.js"></script>
+    <script>
+      document.getElementById("head").onclick = actions["l"];
+      document.getElementById("rshoulder").onclick = actions["o"];
+      document.getElementById("torso").onclick = actions["t"];
+      document.getElementById("lshoulder").onclick = actions["s"];
+      document.getElementById("rarm").onclick = actions["b"];
+      document.getElementById("larm").onclick = actions["a"];
+      document.getElementById("rhand").onclick = actions["m"];
+      document.getElementById("lhand").onclick = actions["h"];
+    </script>
   </body>
 </html>

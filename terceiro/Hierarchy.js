@@ -235,6 +235,15 @@ var rightArmMatrix = new Matrix4().setTranslate(0, -5, 0);
 /**  @type {Matrix4} */
 var rightHandMatrix = new Matrix4().setTranslate(0, -4, 0);
 
+/**  @type {Matrix4} */
+var leftLegMatrix = new Matrix4().setTranslate(2.5, -11, 0);
+/**  @type {Matrix4} */
+var leftFeetMatrix = new Matrix4().setTranslate(0, -4.7, 0);
+/**  @type {Matrix4} */
+var rightLegMatrix = new Matrix4().setTranslate(-2.5, -11, 0);
+/**  @type {Matrix4} */
+var rightFeetMatrix = new Matrix4().setTranslate(0, -4.7, 0);
+
 var leftTorsoAngle = 0.0;
 var leftShoulderAngle = 0.0;
 var leftArmAngle = 0.0;
@@ -245,6 +254,11 @@ var rightShoulderAngle = 0.0;
 var rightArmAngle = 0.0;
 var rightHandAngle = 0.0;
 
+var leftLegAngle = 0.0;
+var leftFeetAngle = 0.0;
+var rightLegAngle = 0.0;
+var rightFeetAngle = 0.0;
+
 var leftTorsoMatrixLocal = new Matrix4().setScale(10, 10, 5);
 var leftShoulderMatrixLocal = new Matrix4().setScale(3, 5, 2);
 var leftArmMatrixLocal = new Matrix4().setScale(3, 5, 2);
@@ -254,6 +268,11 @@ var headMatrixLocal = new Matrix4().setScale(4, 4, 4);
 var rightShoulderMatrixLocal = new Matrix4().setScale(3, 5, 2);
 var rightArmMatrixLocal = new Matrix4().setScale(3, 5, 2);
 var rightHandMatrixLocal = new Matrix4().setScale(1, 3, 3);
+
+var leftLegMatrixLocal = new Matrix4().setScale(3, 10, 2);
+var leftFeetMatrixLocal = new Matrix4().setScale(4, 1, 4);
+var rightLegMatrixLocal = new Matrix4().setScale(3, 10, 2);
+var rightFeetMatrixLocal = new Matrix4().setScale(4, 1, 4);
 
 /**
  * View matrix.
@@ -320,6 +339,22 @@ const actions = {
   l: () => {
     headAngle += 15;
     headMatrix.setTranslate(0, 7, 0).rotate(headAngle, 0, 1, 0);
+  },
+  c: () => {
+    rightLegAngle -= 15;
+    rightLegMatrix.setTranslate(-2.5, -11, 0).rotate(rightLegAngle, 0, 1, 0);
+  },
+  d: () => {
+    leftLegAngle -= 15;
+    leftLegMatrix.setTranslate(2.5, -11, 0).rotate(leftLegAngle, 0, 1, 0);
+  },
+  p: () => {
+    rightFeetAngle -= 15;
+    rightFeetMatrix.setTranslate(0, -4.7, 0).rotate(rightFeetAngle, 0, 1, 0);
+  },
+  f: () => {
+    leftFeetAngle -= 15;
+    leftFeetMatrix.setTranslate(0, -4.7, 0).rotate(leftFeetAngle, 0, 1, 0);
   },
 };
 
@@ -454,6 +489,26 @@ function draw() {
   s.push(new Matrix4(s.top()).multiply(rightHandMatrix));
   renderCube(s, rightHandMatrixLocal);
   s.pop();
+  s.pop();
+  s.pop();
+
+  // leg relative to torso
+  s.push(new Matrix4(s.top()).multiply(leftLegMatrix));
+  renderCube(s, leftLegMatrixLocal);
+
+  // feet relative to leg
+  s.push(new Matrix4(s.top()).multiply(leftFeetMatrix));
+  renderCube(s, leftFeetMatrixLocal);
+  s.pop();
+  s.pop();
+
+  // leg relative to torso
+  s.push(new Matrix4(s.top()).multiply(rightLegMatrix));
+  renderCube(s, rightLegMatrixLocal);
+
+  // feet relative to leg
+  s.push(new Matrix4(s.top()).multiply(rightFeetMatrix));
+  renderCube(s, rightFeetMatrixLocal);
   s.pop();
   s.pop();
 

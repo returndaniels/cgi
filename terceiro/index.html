@@ -130,9 +130,11 @@ Vertex shader does basic Lambert shading. -->
         gl_FragColor = color;
       }
     </script>
-    <script src="./libs/cuon/cuon-utils.js"></script>
-    <script src="./libs/cuon/cuon-matrix.js"></script>
-    <script src="Hierarchy.js"></script>
+
+    <script type="text/javascript" src="./libs/cuon/cuon-utils.js"></script>
+    <script type="text/javascript" src="./libs/cuon/cuon-matrix.js"></script>
+    <script type="text/javascript" src="Hierarchy.js"></script>
+
     <script>
       document.getElementById("head").onclick = actions["l"];
       document.getElementById("rshoulder").onclick = actions["o"];
@@ -142,6 +144,10 @@ Vertex shader does basic Lambert shading. -->
       document.getElementById("larm").onclick = actions["a"];
       document.getElementById("rhand").onclick = actions["m"];
       document.getElementById("lhand").onclick = actions["h"];
+      document.getElementById("rleg").onclick = actions["c"];
+      document.getElementById("lleg").onclick = actions["d"];
+      document.getElementById("rfeet").onclick = actions["p"];
+      document.getElementById("lfeet").onclick = actions["f"];
     </script>
   </body>
 </html>
